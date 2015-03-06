@@ -1,0 +1,13 @@
+#!/bin/bash
+set -eo pipefail
+
+echo "**** Starting Memcached container. Enjoy! ****"
+[ -n "$OPEN_FILE_LIMIT" ] &&\
+  ulimit -n $OPEN_FILE_LIMIT
+
+exec -a "memcached" "/usr/bin/memcached" \
+  "-u" "$MC_USER" \
+  "-l" "$MC_INTERFACE" \
+  $*
+
+exit 0
